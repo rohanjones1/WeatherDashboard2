@@ -13,8 +13,9 @@ app.get("/", (_req: Request, res: Response) => {
   res.render("index");
 });
 
-// TODO: Replace this mock endpoint with a real weather API.
-// The response shape should stay the same so the frontend keeps working.
+// TODO: Implement a real weather API integration.
+// Once connected, this endpoint should return JSON in the shape:
+// { city, temperature, condition, humidity, windSpeed, forecast: [{ day, high, low, condition }] }
 app.get("/api/weather", (req: Request, res: Response) => {
   const city = req.query.city as string | undefined;
 
@@ -23,23 +24,10 @@ app.get("/api/weather", (req: Request, res: Response) => {
     return;
   }
 
-  // TODO: Replace this hardcoded mock data with live data from a weather API.
-  const mockWeather = {
-    city: city,
-    temperature: 22,
-    condition: "Partly Cloudy",
-    humidity: 58,
-    windSpeed: 12,
-    forecast: [
-      { day: "Mon", high: 24, low: 16, condition: "Sunny" },
-      { day: "Tue", high: 21, low: 14, condition: "Cloudy" },
-      { day: "Wed", high: 19, low: 13, condition: "Rain" },
-      { day: "Thu", high: 23, low: 15, condition: "Partly Cloudy" },
-      { day: "Fri", high: 25, low: 17, condition: "Sunny" },
-    ],
-  };
-
-  res.json(mockWeather);
+  // TODO: Replace this stub with a call to a real weather API.
+  res.status(501).json({
+    error: "No weather provider configured. Integrate a weather API to enable this endpoint.",
+  });
 });
 
 app.listen(PORT, () => {
